@@ -1,0 +1,72 @@
+@use '../../sass/variable' as *;
+
+.header {
+  padding: 1.5rem 0;
+  background: rgb(20, 20, 20);
+  background: rgb(20, 20, 20);
+  background: linear-gradient(
+    180deg,
+    rgba(20, 20, 20, 1) 0%,
+    rgba(20, 20, 20, 0) 100%
+  );
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 3.2rem;
+    font-weight: 600;
+    color: $main-color;
+  }
+
+  .nav {
+    ul {
+      display: flex;
+      align-items: center;
+    }
+
+    &__item {
+      &:not(:last-child) {
+        margin-right: 2rem;
+      }
+    }
+
+    &__link {
+      font-size: 1.6rem;
+      text-transform: capitalize;
+      color: $color-white;
+      padding: 1rem 0;
+      transition: all 0.3s ease-in-out;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 3px;
+        background-color: $main-color;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+        transition: width 0.3s ease-in-out;
+      }
+
+      &--active {
+        color: $main-color;
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
