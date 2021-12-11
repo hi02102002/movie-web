@@ -1,0 +1,37 @@
+@use 'variables' as *;
+
+@mixin responsive_1139 {
+  @media screen and (max-width: $res_1139px) {
+    @content;
+  }
+}
+
+@mixin responsive_1023 {
+  @media screen and (max-width: $res_1023px) {
+    @content;
+  }
+}
+
+@mixin responsive_767 {
+  @media screen and (max-width: $res_767px) {
+    @content;
+  }
+}
+
+@mixin responsive_639 {
+  @media screen and (max-width: $res_639px) {
+    @content;
+  }
+}
+
+@mixin responsive_424 {
+  @media screen and (max-width: $res_424px) {
+    @content;
+  }
+}
+
+@mixin responsive_319 {
+  @media screen and (max-width: $res_319px) {
+    @content;
+  }
+}

@@ -1,14 +1,42 @@
+import { useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { NAVS } from '../../constant';
 import classes from './Header.module.scss';
+import { BsList } from 'react-icons/bs';
+import Sidebar from '../Sidebar/Sidebar';
+import classesSidebar from '../Sidebar/Sidebar.module.scss';
+
 const Header = () => {
+  const sidebarRef = useRef();
+
+  const clickCloseHandler = () => {
+    sidebarRef.current.classList.remove(`${classesSidebar.active}`);
+  };
+
+  useEffect(() => {
+    const clickOpenSidebarHandler = () => {
+      sidebarRef.current.classList.add(`${classesSidebar.active}`);
+    };
+    const headerToggle = document.querySelector(`.${classes.header__toggle}`);
+    headerToggle.addEventListener('click', clickOpenSidebarHandler);
+
+    return () => {
+      headerToggle.removeEventListener('click', clickOpenSidebarHandler);
+    };
+  }, []);
+
   return (
     <header className={classes.header}>
       <div className="container">
         <div className={classes.header__container}>
-          <Link className={classes.logo} to="/">
-            Hmovie
-          </Link>
+          <div className={classes.logo}>
+            <Link className={classes.logo__large} to="/">
+              Hmovie
+            </Link>
+            <Link className={classes.logo__small} to="/">
+              H
+            </Link>
+          </div>
           <nav className={classes.nav}>
             <ul>
               {NAVS.map(item => (
@@ -24,6 +52,10 @@ const Header = () => {
               ))}
             </ul>
           </nav>
+          <div className={classes.header__toggle}>
+            <BsList />
+          </div>
+          <Sidebar ref={sidebarRef} onClose={clickCloseHandler} />
         </div>
       </div>
     </header>

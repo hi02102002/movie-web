@@ -1,4 +1,5 @@
-@use '../../sass/variable' as *;
+@use '../../sass/variables' as *;
+@use '../../sass/mixin' as *;
 
 .header {
   padding: 1.5rem 0;
@@ -22,12 +23,34 @@
   }
 
   .logo {
-    font-size: 3.2rem;
-    font-weight: 600;
-    color: $main-color;
+    &__large,
+    &__small {
+      color: $main-color;
+      font-size: 3.2rem;
+      font-weight: 600;
+    }
+
+    &__large {
+      @include responsive_424 {
+        display: none;
+      }
+    }
+
+    &__small {
+      display: none;
+      font-size: 5rem;
+
+      @include responsive_424 {
+        display: inline-block;
+      }
+    }
   }
 
   .nav {
+    @include responsive_639 {
+      display: none;
+    }
+
     ul {
       display: flex;
       align-items: center;
@@ -67,6 +90,21 @@
           width: 100%;
         }
       }
+    }
+  }
+
+  &__toggle {
+    cursor: pointer;
+    display: none;
+
+    svg {
+      width: 3.5rem;
+      height: 3.5rem;
+      color: $color-white;
+    }
+
+    @include responsive_639 {
+      display: block;
     }
   }
 }
