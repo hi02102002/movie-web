@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer';
 import Movies from './pages/Movies/Movies';
 import Tvshow from './pages/Tvshow/Tvshow';
 import WishList from './pages/WishList/WishList';
+import Detail from './pages/Detail/Detail';
 function App() {
   return (
     <div className="app">
@@ -25,6 +26,12 @@ function App() {
         </Route>
         <Route exact path="/wish-list">
           <WishList />
+        </Route>
+        <Route exact path="/movie/:id">
+          <Detail />
+        </Route>
+        <Route exact path="/tv/:id">
+          <Detail />
         </Route>
       </Switch>
       <Footer />

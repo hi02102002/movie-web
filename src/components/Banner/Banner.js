@@ -1,46 +1,49 @@
-import React from 'react';
-import { useGetBannerMovieQuery } from '../../services/tmdbApi';
-import classes from './Banner.module.scss';
+import React, { useEffect, useState } from 'react';
+import { tmdbApi } from '../../api/tmdbApi';
 import { random } from '../../utilities/random';
-import { API_KEY, BASE_URL_TMDB, IMG_URL } from '../../constant';
-import Button from '../Button/Button';
+import { API_KEY, IMG_URL } from '../../constant';
 import { BsPlayFill } from 'react-icons/bs';
+import Button from '../Button/Button';
+import classes from './Banner.module.scss';
+
+const params = {
+  api_key: API_KEY,
+  language: 'en-US',
+};
 
 const Banner = () => {
-  const { data, isFetching } = useGetBannerMovieQuery();
-  const movies = data?.results;
-  const movie = movies?.[0] ? random(movies) : movies?.[0];
+  const [movieBanner, setMovieBanner] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  const fetchTrailerMovie = async () => {
-    const response = await fetch(
-      `${BASE_URL_TMDB}/movie/${movie.id}/videos?api_key=${API_KEY}&language=en-US`
-    );
+  useEffect(() => {
+    let cancel = false;
 
-    const { results } = await response.json();
+    const fetchMovieBanner = async () => {
+      try {
+        setIsLoading(true);
+        const data = await tmdbApi.getMovies(params);
+        const movie = random(data.results);
+        if (cancel) return;
+        setMovieBanner(movie);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchMovieBanner();
 
-    console.log(results);
-  };
+    return () => {
+      cancel = true;
+    };
+  }, []);
 
-  if (!data?.results || isFetching) {
-    return (
-      <p
-        style={{
-          position: 'fixed',
-          left: '50%',
-          top: '50%',
-          transform: 'translate(-50%,-50%)',
-        }}
-      >
-        Loading
-      </p>
-    );
-  }
-
-  return (
+  return isLoading ? (
+    <p>loading...</p>
+  ) : (
     <section
       className={classes.banner}
       style={{
-        backgroundImage: `url('${IMG_URL}original${movie.backdrop_path}')`,
+        backgroundImage: `url('${IMG_URL}original${movieBanner.backdrop_path}')`,
       }}
     >
       <div
@@ -51,18 +54,18 @@ const Banner = () => {
       ></div>
       <div className={`${classes.banner__container} container`}>
         <div className={classes.banner__content}>
-          <h1 className={classes.banner__title}>{movie.title}</h1>
-          <p className={classes.banner__overview}>{movie.overview}</p>
+          <h1 className={classes.banner__title}>{movieBanner.title}</h1>
+          <p className={classes.banner__overview}>{movieBanner.overview}</p>
           <div className={classes.banner__detail}>
-            <span>Rate: {movie.vote_average}/10</span>
-            <span>Date: {movie.release_date}</span>
+            <span>Rate: {movieBanner.vote_average}/10</span>
+            <span>Date: {movieBanner.release_date}</span>
           </div>
           <div className={classes.banner__btns}>
             <Button className={classes.banner__btn}>
               <BsPlayFill />
               <span>Play</span>
             </Button>
-            <Button className={classes.banner__btn} onClick={fetchTrailerMovie}>
+            <Button className={classes.banner__btn}>
               <BsPlayFill />
               <span>Play Trailer</span>
             </Button>
@@ -70,8 +73,8 @@ const Banner = () => {
         </div>
         <div className={classes.banner__img}>
           <img
-            src={`${IMG_URL}original${movie.poster_path}`}
-            alt={movie.title}
+            src={`${IMG_URL}original${movieBanner.poster_path}`}
+            alt={movieBanner.title}
           />
         </div>
       </div>
@@ -79,4 +82,4 @@ const Banner = () => {
   );
 };
 
-export default React.memo(Banner);
+export default Banner;

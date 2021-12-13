@@ -1,42 +1,7 @@
 @use '../../sass/mixin' as *;
+@use '../../sass/variables' as *;
 
 .movies-page {
   padding-top: 10rem;
   padding-bottom: 6rem;
-
-  &__container {
-    --col: 5;
-    --gap: 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--gap);
-    margin-right: calc(-1 * var(--gap));
-
-    @include responsive_1139 {
-      --col: 4;
-    }
-
-    @include responsive_1023 {
-      --col: 3;
-    }
-
-    @include responsive_767 {
-      --col: 2;
-    }
-
-    @media screen and (max-width: 520px) {
-      --col: 1;
-    }
-  }
-
-  &__card {
-    width: calc(100% / var(--col) - var(--gap));
-  }
-
-  &__btn {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 6rem;
-  }
 }

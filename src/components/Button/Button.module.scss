@@ -56,4 +56,14 @@
     width: 2.4rem;
     height: 2.4rem;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &::after,
+    &::before {
+      display: none;
+    }
+  }
 }
