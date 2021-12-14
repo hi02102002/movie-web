@@ -32,7 +32,8 @@
     transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     transform: translateY(110%);
 
-    a {
+    a,
+    h3 {
       color: $color-white;
       display: inline-block;
       margin-bottom: 1rem;

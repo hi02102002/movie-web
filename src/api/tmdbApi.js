@@ -31,4 +31,12 @@ export const tmdbApi = {
     const url = `${path}/credits`;
     return axiosClientTmdb.get(url, { params });
   },
+  getSimilar: (params, path) => {
+    const url = `${path}/similar`;
+    return axiosClientTmdb.get(url, { params });
+  },
+  getTvSeasons: (params, path, seasonsNumber) => {
+    const url = `${path}/season/${seasonsNumber}`;
+    return axiosClientTmdb.get(url, { params });
+  },
 };

@@ -25,6 +25,21 @@ const Header = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const header = document.querySelector(`.${classes.header}`);
+    const changeBgColorHeader = () => {
+      if (window.scrollY > 50) {
+        header.style.backgroundColor = '#141414';
+      } else {
+        header.style.backgroundColor = 'unset';
+      }
+    };
+    window.addEventListener('scroll', changeBgColorHeader);
+    return () => {
+      window.removeEventListener('scroll', changeBgColorHeader);
+    };
+  }, []);
+
   return (
     <header className={classes.header}>
       <div className="container">

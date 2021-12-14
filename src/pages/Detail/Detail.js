@@ -1,24 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { tmdbApi } from '../../api/tmdbApi';
 import { API_KEY, IMG_URL } from '../../constant';
 import convertTime from '../../utilities/convertTime';
 import { BsPlus, BsPlayFill } from 'react-icons/bs';
 import Button from '../../components/Button/Button';
 import CastList from '../../components/CastList/CastList';
+import Row from '../../components/Row/Row';
 import classes from './Detail.module.scss';
+import noImg from '../../img/no-img.jpg';
 
 const Detail = () => {
   const { pathname } = useLocation();
+  const history = useHistory();
 
+  let type = '';
+  if (pathname.includes('movie')) {
+    type = 'movie';
+  } else if (pathname.includes('tv')) {
+    type = 'tv';
+  }
   const [data, setData] = useState({
     item: {},
-    video: [],
+    videos: [],
     cast: [],
   });
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    let cancel = false;
     const fetchData = async () => {
       try {
         setIsLoading(true);
@@ -31,21 +41,27 @@ const Detail = () => {
           tmdbApi.getVideo(params, pathname),
         ]);
 
+        if (cancel) {
+          return;
+        }
+
         setData({
           item: data[0],
           cast: data[1].cast,
-          video: data[2].results,
+          videos: data[2].results,
         });
 
         setIsLoading(false);
       } catch (err) {
-        console.log(err);
+        history.push('/home');
       }
     };
     fetchData();
-  }, [pathname]);
 
-  console.log(data);
+    return () => {
+      cancel = true;
+    };
+  }, [pathname, history]);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -56,7 +72,9 @@ const Detail = () => {
       <div
         className={classes.detail__header}
         style={{
-          backgroundImage: `url('${IMG_URL}original${data.item.backdrop_path}')`,
+          backgroundImage: data.item.backdrop_path
+            ? `url('${IMG_URL}original${data.item.backdrop_path}')`
+            : `url('${noImg}')`,
         }}
       >
         <div className="container">
@@ -84,8 +102,18 @@ const Detail = () => {
                   )}
                 </span>
               </div>
+              {type === 'tv' && data.item.seasons ? (
+                <div className={classes['detail__header-seasons']}>
+                  {data.item.seasons.length} Seasons
+                </div>
+              ) : null}
               <div className={classes['detail__header-btns']}>
-                <Button className={classes['detail__header-btn']}>
+                <Button
+                  className={classes['detail__header-btn']}
+                  onClick={() => {
+                    history.push(`${pathname}/play`);
+                  }}
+                >
                   <BsPlayFill />
                 </Button>
                 <Button className={classes['detail__header-btn']}>
@@ -104,8 +132,38 @@ const Detail = () => {
       </div>
       <div className="container">
         <div className={classes.detail__main}>
-          <CastList castList={data.cast}></CastList>
+          {data.cast.length > 0 ? (
+            <CastList castList={data.cast}></CastList>
+          ) : null}
+          {data.videos.length > 0 ? (
+            <div className={classes.detail__videos}>
+              <ul className={classes['detail__videos-list']}>
+                {data.videos.slice(0, 5).map(video => (
+                  <li key={video.id}>
+                    <div>{video.type}</div>
+                    <iframe
+                      width="100%"
+                      src={`https://www.youtube.com/embed/${video.key}`}
+                      title={video.name}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
+      </div>
+      <div style={{ overflowX: 'hidden' }}>
+        <Row
+          fetchMovies={tmdbApi.getSimilar}
+          title="Similar"
+          type="movie"
+          pathname={pathname}
+          className={classes['detail__header-title']}
+        />
       </div>
     </div>
   );

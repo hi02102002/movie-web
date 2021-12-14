@@ -1,0 +1,60 @@
+@use '../../sass/variables' as *;
+
+.selection {
+  position: relative;
+  width: max-content;
+  display: inline-block;
+  background-color: $color-black-1;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 20px rgba($color: #000000, $alpha: 0.4);
+
+  &__default-value {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      width: 2.4rem;
+      height: 2.4rem;
+      margin-left: 1rem;
+      transition: all 0.3s ease;
+    }
+  }
+
+  &__value-wrap {
+    display: flex;
+    flex-direction: column;
+    display: none;
+    position: absolute;
+    width: 100%;
+    border-radius: 0 0 0.25rem 0.25rem;
+    background-color: $color-black-1;
+    max-height: 20rem;
+    overflow: hidden;
+    overflow-y: auto;
+    z-index: 10;
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+  }
+
+  &__value {
+    padding: 1rem 0.5rem;
+    cursor: pointer;
+
+    &.active-value {
+      background-color: $main-color;
+    }
+  }
+
+  &.active {
+    .selection__value-wrap {
+      display: block;
+    }
+
+    .icon {
+      transform: rotate(180deg);
+    }
+  }
+}

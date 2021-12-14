@@ -7,6 +7,7 @@ import Movies from './pages/Movies/Movies';
 import Tvshow from './pages/Tvshow/Tvshow';
 import WishList from './pages/WishList/WishList';
 import Detail from './pages/Detail/Detail';
+import MoviePlay from './pages/MoviePlay/MoviePlay';
 function App() {
   return (
     <div className="app">
@@ -32,6 +33,12 @@ function App() {
         </Route>
         <Route exact path="/tv/:id">
           <Detail />
+        </Route>
+        <Route exact path="/movie/:id/play">
+          <MoviePlay />
+        </Route>
+        <Route exact path="/tv/:id/play">
+          <MoviePlay />
         </Route>
       </Switch>
       <Footer />

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { tmdbApi } from '../../api/tmdbApi';
 import { random } from '../../utilities/random';
 import { API_KEY, IMG_URL } from '../../constant';
@@ -14,7 +15,7 @@ const params = {
 const Banner = () => {
   const [movieBanner, setMovieBanner] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
+  const history = useHistory();
   useEffect(() => {
     let cancel = false;
 
@@ -61,7 +62,12 @@ const Banner = () => {
             <span>Date: {movieBanner.release_date}</span>
           </div>
           <div className={classes.banner__btns}>
-            <Button className={classes.banner__btn}>
+            <Button
+              className={classes.banner__btn}
+              onClick={() => {
+                history.push(`/movie/${movieBanner.id}/play`);
+              }}
+            >
               <BsPlayFill />
               <span>Play</span>
             </Button>
