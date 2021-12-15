@@ -1,19 +1,72 @@
+@use '../../sass/mixin' as *;
+
 .movie-detail {
   padding: 10rem 0 6rem 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  overflow-x: hidden;
+
+  &::after {
+    content: '';
+    background-color: rgba($color: #000000, $alpha: 0.7);
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
 
   &__container {
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 2;
   }
 
   &__video {
-    height: 45vw;
+    height: 40vw;
     border: 0;
     border-radius: 0.25rem;
+    margin: 0 auto;
     margin-bottom: 2rem;
+    border: 2px solid #fff;
+    width: 80vw;
+
+    @include responsive_767 {
+      height: 55vw;
+      width: 100%;
+    }
+  }
+
+  &__title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  &__episode-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  &__overview,
+  &__date,
+  &__genres {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    display: block;
   }
 
   .selection {
     margin-bottom: 2rem;
+  }
+  .row__title {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
   }
 }

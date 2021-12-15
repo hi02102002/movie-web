@@ -3,7 +3,6 @@ import ReactPaginate from 'react-paginate';
 import classes from './Pagination.module.scss';
 const Pagination = ({ dataList, setPage }) => {
   const pageChangeHandler = dataPagination => {
-    console.log(dataPagination);
     setPage(dataPagination.selected + 1);
   };
 

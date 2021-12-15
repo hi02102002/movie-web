@@ -34,12 +34,9 @@ const Selection = ({
         const dataValue = value.getAttribute('data-value');
         setValue(dataValue);
         setClickOpen(false);
-        console.log(dataValue);
       });
     });
   }, [setValue]);
-
-  console.log(data);
 
   return (
     <div
@@ -61,15 +58,19 @@ const Selection = ({
           classNameValueWrap || ''
         }`}
       >
-        {data.map(item => (
-          <li
-            className={`${classes.selection__value} ${classNameValue || ''}`}
-            key={item.name}
-            data-value={item.season_number}
-          >
-            {item.name}
-          </li>
-        ))}
+        {data.map(item => {
+          if (item.season_number === 0) return true;
+
+          return (
+            <li
+              className={`${classes.selection__value} ${classNameValue || ''}`}
+              key={item.name}
+              data-value={item.season_number}
+            >
+              {item.name}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

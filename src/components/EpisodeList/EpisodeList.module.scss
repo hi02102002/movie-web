@@ -1,0 +1,72 @@
+@use '../../sass/variables' as *;
+
+.episodes {
+  overflow: unset;
+}
+
+.episodes__card {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 0.25rem;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    background: rgb(20, 20, 20);
+    background: linear-gradient(
+      0deg,
+      rgba(20, 20, 20, 1) 0%,
+      rgba(20, 20, 20, 0) 100%
+    );
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+  }
+
+  &-img {
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &-code {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: $main-color;
+    border-radius: 0.25rem;
+  }
+
+  &-info {
+    transform: translateY(100%);
+    position: absolute;
+    min-height: 6rem;
+    padding: 1rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    h4:hover {
+      color: $main-color;
+      cursor: pointer;
+    }
+  }
+
+  &:hover &-info {
+    transform: translateY(0);
+  }
+}

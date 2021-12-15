@@ -1,7 +1,7 @@
 import React from 'react';
 import { Swiper } from 'swiper/react/swiper-react.js';
 
-const SwiperNew = ({ className, config, ...props }) => {
+const SwiperNew = ({ config, ...props }) => {
   return (
     <div>
       <Swiper
@@ -39,7 +39,7 @@ const SwiperNew = ({ className, config, ...props }) => {
             slidesPerGroup: 5,
           },
         }}
-        className={className}
+        className={props.className || ''}
       >
         {props.children}
       </Swiper>

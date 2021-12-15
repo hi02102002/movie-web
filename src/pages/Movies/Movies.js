@@ -8,10 +8,6 @@ import useFetchDataList from '../../hooks/useFetchDataList';
 const Movies = () => {
   const { page, setPage, dataList } = useFetchDataList(tmdbApi.getMovies);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [page]);
-
   return (
     <div className={classes['movies-page']}>
       <div className="container">

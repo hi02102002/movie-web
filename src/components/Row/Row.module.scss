@@ -1,5 +1,7 @@
 .row {
   margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
 
   &__title {
     margin-bottom: 2.4rem;

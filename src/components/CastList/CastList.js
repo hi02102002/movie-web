@@ -51,7 +51,7 @@ const CastList = ({ castList }) => {
       >
         {castList.map(item => {
           return (
-            <SwiperSlide key={item.cast_id} style={{ height: 'unset' }}>
+            <SwiperSlide style={{ height: 'unset' }} key={item.id}>
               <div className={classes['casts-card']}>
                 <div className={classes['casts-card__img']}>
                   <img

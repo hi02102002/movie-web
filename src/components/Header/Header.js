@@ -30,8 +30,10 @@ const Header = () => {
     const changeBgColorHeader = () => {
       if (window.scrollY > 50) {
         header.style.backgroundColor = '#141414';
+        header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.6)';
       } else {
         header.style.backgroundColor = 'unset';
+        header.style.boxShadow = 'unset';
       }
     };
     window.addEventListener('scroll', changeBgColorHeader);
