@@ -35,7 +35,7 @@ const Row = ({ title, type, fetchMovies, pathname, className }) => {
     };
   }, [fetchMovies, pathname]);
 
-  return (
+  return movies && movies.length > 0 ? (
     <div className={classes.row}>
       <div className="container">
         <div className={classes.row__header}>
@@ -54,7 +54,7 @@ const Row = ({ title, type, fetchMovies, pathname, className }) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default Row;

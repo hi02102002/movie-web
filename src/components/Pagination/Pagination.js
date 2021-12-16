@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
+import scrollToTop from '../../utilities/scrollToTop';
 import classes from './Pagination.module.scss';
-const Pagination = ({ dataList, setPage }) => {
+const Pagination = ({ dataList, setPage, totalPage }) => {
   const pageChangeHandler = dataPagination => {
     setPage(dataPagination.selected + 1);
+    scrollToTop();
   };
 
   return (
@@ -11,7 +13,7 @@ const Pagination = ({ dataList, setPage }) => {
       <ReactPaginate
         previousLabel="previous"
         nextLabel="next"
-        pageCount={100}
+        pageCount={totalPage > 500 ? 500 : totalPage}
         onPageChange={pageChangeHandler}
         containerClassName={classes.pagination__container}
         pageLinkClassName={classes.pagination__link}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Homepage from './pages/Homepage/Homepage';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -8,38 +9,78 @@ import Tvshow from './pages/Tvshow/Tvshow';
 import WishList from './pages/WishList/WishList';
 import Detail from './pages/Detail/Detail';
 import MoviePlay from './pages/MoviePlay/MoviePlay';
+import SearchPage from './pages/SearchPage/SearchPage';
+import Page404 from './pages/404/Page404';
+
+const routesArr = [
+  {
+    path: '/home',
+    component: <Homepage />,
+    exact: true,
+  },
+  {
+    path: '/movies',
+    component: <Movies />,
+    exact: true,
+  },
+  {
+    path: '/tvshow',
+    component: <Tvshow />,
+    exact: true,
+  },
+  {
+    path: '/wish-list',
+    component: <WishList />,
+    exact: true,
+  },
+  {
+    path: '/movie/:id',
+    component: <Detail />,
+    exact: true,
+  },
+  {
+    path: '/tv/:id',
+    component: <Detail />,
+    exact: true,
+  },
+  {
+    path: '/tv/:id/play',
+    component: <MoviePlay />,
+    exact: true,
+  },
+  {
+    path: '/movie/:id/play',
+    component: <MoviePlay />,
+    exact: true,
+  },
+  {
+    path: '/search',
+    component: <SearchPage />,
+    exact: true,
+  },
+  {
+    path: '*',
+    component: <Page404 />,
+    exact: false,
+  },
+];
+
 function App() {
   return (
     <div className="app">
       <Header />
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/home" /> : <Homepage />
-        </Route>
-        <Route exact path="/home">
-          <Homepage />
-        </Route>
-        <Route exact path="/movies">
-          <Movies />
-        </Route>
-        <Route exact path="/tvshow">
-          <Tvshow />
-        </Route>
-        <Route exact path="/wish-list">
-          <WishList />
-        </Route>
-        <Route exact path="/movie/:id">
-          <Detail />
-        </Route>
-        <Route exact path="/tv/:id">
-          <Detail />
-        </Route>
-        <Route exact path="/movie/:id/play">
-          <MoviePlay />
-        </Route>
-        <Route exact path="/tv/:id/play">
-          <MoviePlay />
-        </Route>
+        {routesArr.map(item => {
+          return (
+            <Route
+              key={item.path}
+              exact={item.exact ? item.exact : false}
+              path={item.path}
+            >
+              {item.component}
+            </Route>
+          );
+        })}
       </Switch>
       <Footer />
     </div>

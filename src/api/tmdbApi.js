@@ -39,4 +39,8 @@ export const tmdbApi = {
     const url = `${path}/season/${seasonsNumber}`;
     return axiosClientTmdb.get(url, { params });
   },
+  search: params => {
+    const url = `/search/multi`;
+    return axiosClientTmdb.get(url, { params });
+  },
 };

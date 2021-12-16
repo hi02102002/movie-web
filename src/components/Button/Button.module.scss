@@ -57,6 +57,10 @@
     height: 2.4rem;
   }
 
+  span {
+    margin-right: 1rem;
+  }
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;

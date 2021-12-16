@@ -4,20 +4,20 @@ import { tmdbApi } from '../../api/tmdbApi';
 import ListGrid from '../../components/ListGrid/ListGrid';
 import Pagination from '../../components/Pagination/Pagination';
 import classes from './Tvshow.module.scss';
+import scrollToTop from '../../utilities/scrollToTop';
 
 const Tvshow = () => {
-  const { page, setPage, dataList } = useFetchDataList(tmdbApi.getTvs);
+  const { setPage, dataList, totalPage } = useFetchDataList(tmdbApi.getTvs);
 
-  console.log(dataList);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [page]);
   return (
     <div className={classes['tvshow-page']}>
       <div className="container">
         <ListGrid list={dataList.results || []} type="tv" />
-        <Pagination dataList={dataList} setPage={setPage} />
+        <Pagination
+          dataList={dataList}
+          setPage={setPage}
+          totalPage={totalPage}
+        />
       </div>
     </div>
   );

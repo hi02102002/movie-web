@@ -5,6 +5,7 @@ import classes from './Header.module.scss';
 import { BsList } from 'react-icons/bs';
 import Sidebar from '../Sidebar/Sidebar';
 import classesSidebar from '../Sidebar/Sidebar.module.scss';
+import SearchHeader from './SearchHeader';
 
 const Header = () => {
   const sidebarRef = useRef();
@@ -47,10 +48,10 @@ const Header = () => {
       <div className="container">
         <div className={classes.header__container}>
           <div className={classes.logo}>
-            <Link className={classes.logo__large} to="/">
+            <Link className={classes.logo__large} to="/home">
               Hmovie
             </Link>
-            <Link className={classes.logo__small} to="/">
+            <Link className={classes.logo__small} to="/home">
               H
             </Link>
           </div>
@@ -69,6 +70,12 @@ const Header = () => {
               ))}
             </ul>
           </nav>
+          <SearchHeader
+            classNameWrap={classes.header__search}
+            classNameSearchField={classes['header__search-field']}
+            classNameIcon={classes['header__search-icon']}
+            classActive={classes['active']}
+          />
           <div className={classes.header__toggle}>
             <BsList />
           </div>

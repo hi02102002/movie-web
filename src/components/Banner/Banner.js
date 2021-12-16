@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { tmdbApi } from '../../api/tmdbApi';
 import { random } from '../../utilities/random';
 import { API_KEY, IMG_URL } from '../../constant';
-import { BsPlayFill } from 'react-icons/bs';
+import { BsInfo, BsInfoCircle, BsPlayFill } from 'react-icons/bs';
 import Button from '../Button/Button';
 import classes from './Banner.module.scss';
 
@@ -71,9 +71,14 @@ const Banner = () => {
               <BsPlayFill />
               <span>Play</span>
             </Button>
-            <Button className={classes.banner__btn}>
-              <BsPlayFill />
-              <span>Play Trailer</span>
+            <Button
+              className={classes.banner__btn}
+              onClick={() => {
+                history.push(`/movie/${movieBanner.id}`);
+              }}
+            >
+              <BsInfoCircle />
+              <span>Info</span>
             </Button>
           </div>
         </div>

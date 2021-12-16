@@ -1,6 +1,6 @@
 import { tmdbApi } from '../../api/tmdbApi';
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { embedEpisode, embedMovie } from '../../api/embed';
 import { API_KEY, IMG_URL } from '../../constant';
 import Selection from '../../components/Selection/Selection';
@@ -8,6 +8,7 @@ import EpisodeList from '../../components/EpisodeList/EpisodeList';
 import Row from '../../components/Row/Row';
 import noImg from '../../img/no-img.jpg';
 import classes from './MoviePlay.module.scss';
+import scrollToTop from '../../utilities/scrollToTop';
 const MoviePlay = () => {
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -19,7 +20,7 @@ const MoviePlay = () => {
   const [dataPlay, setDataPlay] = useState({});
   const [episodeTitle, setEpisodeTitle] = useState('');
   const [episodeOverview, setEpisodeOverview] = useState('');
-
+  const history = useHistory();
   useEffect(() => {
     if (pathname.includes('movie')) {
       setType('movie');
@@ -31,25 +32,38 @@ const MoviePlay = () => {
   }, [id, pathname, seasonsIndex]);
 
   useEffect(() => {
+    let cancel = false;
     const fetchData = async () => {
-      const path = `/${type}/${id}`;
-      const params = {
-        api_key: API_KEY,
-      };
-      const data = await tmdbApi.getMovieOrTv(params, path);
-      setDataPlay(data);
-      if (type === 'tv') {
-        setSeasonsData(data.seasons);
+      try {
+        const path = `/${type}/${id}`;
+        const params = {
+          api_key: API_KEY,
+        };
+        const data = await tmdbApi.getMovieOrTv(params, path);
+        if (cancel) return;
+        setDataPlay(data);
+        if (type === 'tv') {
+          setSeasonsData(data.seasons);
+        }
+      } catch (error) {
+        // if (type !== 'movie' || type !== 'tv') {
+        //   history.push('/404');
+        // }
+        // console.log(error);
       }
     };
     fetchData();
-  }, [id, type]);
+
+    return () => {
+      cancel = true;
+    };
+  }, [id, type, history]);
 
   const onChangeEpisode = (episode, overview, title) => {
     setSrcTV(embedEpisode(id, seasonsIndex, episode));
     setEpisodeOverview(overview);
     setEpisodeTitle(title);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollToTop();
   };
 
   return (

@@ -20,10 +20,10 @@
   &__container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
   }
 
   .logo {
+    margin-right: 3rem;
     &__large,
     &__small {
       color: $main-color;
@@ -32,7 +32,7 @@
     }
 
     &__large {
-      @include responsive_424 {
+      @include responsive_639 {
         display: none;
       }
     }
@@ -41,7 +41,7 @@
       display: none;
       font-size: 5rem;
 
-      @include responsive_424 {
+      @include responsive_639 {
         display: inline-block;
       }
     }
@@ -95,6 +95,7 @@
   }
 
   &__toggle {
+    margin-left: 2rem;
     cursor: pointer;
     display: none;
 
@@ -106,6 +107,41 @@
 
     @include responsive_639 {
       display: block;
+    }
+  }
+  &__search {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+
+    &-field {
+      background-color: $color-black-1;
+      border-radius: 0.25rem;
+      font-size: 1.4rem;
+      color: $color-white;
+      width: 0;
+      padding: 1rem 1.5rem;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+      &.active {
+        width: 26rem;
+        padding: 1rem 1.5rem;
+        opacity: 1;
+
+        @include responsive_639 {
+          width: 15rem;
+        }
+      }
+    }
+
+    &-icon {
+      margin-left: 2rem;
+      cursor: pointer;
+      svg {
+        width: 2rem;
+        height: 2rem;
+      }
     }
   }
 }

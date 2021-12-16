@@ -52,9 +52,7 @@ const Detail = () => {
         });
 
         setIsLoading(false);
-      } catch (err) {
-        history.push('/home');
-      }
+      } catch (err) {}
     };
     fetchData();
 
