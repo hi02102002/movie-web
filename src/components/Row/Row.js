@@ -37,16 +37,16 @@ const Row = ({ title, type, fetchMovies, pathname, className }) => {
 
   return movies && movies.length > 0 ? (
     <div className={classes.row}>
-      <div className="container">
-        <div className={classes.row__header}>
-          <h3 className={`${classes.row__title} ${className}`}>{title}</h3>
-        </div>
+      <div className={classes.row__header}>
+        <h3 className={`${classes.row__title} ${className}`}>{title}</h3>
+      </div>
+      <div className={classes.container}>
         <div className={classes.row__container}>
           <Swiper className={classes.swiper}>
             {movies.map(movie => {
               return (
                 <SwiperSlide key={movie.id}>
-                  <MovieCard movie={movie} type={type} />
+                  <MovieCard movie={movie} type={type} isAdd={true} />
                 </SwiperSlide>
               );
             })}

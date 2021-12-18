@@ -1,0 +1,56 @@
+@use '../../sass/variables' as *;
+.sign {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__form,
+  .input__group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    margin-bottom: 3rem;
+    font-size: 2.4rem;
+    font-weight: 600;
+  }
+
+  .input__group {
+    margin-bottom: 2rem;
+    label {
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+
+    input {
+      padding: 1.5rem;
+      border-radius: 0.25rem;
+      background-color: $color-gray;
+      height: 5.5rem;
+      color: #fff;
+
+      &::placeholder {
+        color: rgb(143, 143, 143);
+      }
+    }
+  }
+
+  &__btn {
+    height: 5.5rem;
+    transition: all 0.3;
+
+    &::after,
+    &::before {
+      display: none;
+    }
+    span {
+      margin: 0;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

@@ -9,6 +9,7 @@ import Row from '../../components/Row/Row';
 import noImg from '../../img/no-img.jpg';
 import classes from './MoviePlay.module.scss';
 import scrollToTop from '../../utilities/scrollToTop';
+import Loader from '../../components/Loader/Loader';
 const MoviePlay = () => {
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -20,6 +21,7 @@ const MoviePlay = () => {
   const [dataPlay, setDataPlay] = useState({});
   const [episodeTitle, setEpisodeTitle] = useState('');
   const [episodeOverview, setEpisodeOverview] = useState('');
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   useEffect(() => {
     if (pathname.includes('movie')) {
@@ -35,6 +37,7 @@ const MoviePlay = () => {
     let cancel = false;
     const fetchData = async () => {
       try {
+        setLoading(true);
         const path = `/${type}/${id}`;
         const params = {
           api_key: API_KEY,
@@ -45,11 +48,9 @@ const MoviePlay = () => {
         if (type === 'tv') {
           setSeasonsData(data.seasons);
         }
+        setLoading(false);
       } catch (error) {
-        // if (type !== 'movie' || type !== 'tv') {
-        //   history.push('/404');
-        // }
-        // console.log(error);
+        console.log(error);
       }
     };
     fetchData();
@@ -66,7 +67,9 @@ const MoviePlay = () => {
     scrollToTop();
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div
       className={classes['movie-detail']}
       style={{

@@ -3,12 +3,13 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { tmdbApi } from '../../api/tmdbApi';
 import { API_KEY, IMG_URL } from '../../constant';
 import convertTime from '../../utilities/convertTime';
-import { BsPlus, BsPlayFill } from 'react-icons/bs';
+import { BsPlayFill } from 'react-icons/bs';
 import Button from '../../components/Button/Button';
 import CastList from '../../components/CastList/CastList';
 import Row from '../../components/Row/Row';
 import classes from './Detail.module.scss';
 import noImg from '../../img/no-img.jpg';
+import Loader from '../../components/Loader/Loader';
 
 const Detail = () => {
   const { pathname } = useLocation();
@@ -61,17 +62,15 @@ const Detail = () => {
     };
   }, [pathname, history]);
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className={classes.detail}>
       <div
         className={classes.detail__header}
         style={{
           backgroundImage: data.item.backdrop_path
-            ? `url('${IMG_URL}original${data.item.backdrop_path}')`
+            ? `url('${IMG_URL}w500${data.item.backdrop_path}')`
             : `url('${noImg}')`,
         }}
       >
@@ -114,9 +113,6 @@ const Detail = () => {
                 >
                   <BsPlayFill />
                 </Button>
-                <Button className={classes['detail__header-btn']}>
-                  <BsPlus />
-                </Button>
               </div>
               <div>
                 <h3 className={classes['detail__header-title']}>Overview</h3>
@@ -128,11 +124,9 @@ const Detail = () => {
           </div>
         </div>
       </div>
+      {data.cast.length > 0 ? <CastList castList={data.cast}></CastList> : null}
       <div className="container">
         <div className={classes.detail__main}>
-          {data.cast.length > 0 ? (
-            <CastList castList={data.cast}></CastList>
-          ) : null}
           {data.videos.length > 0 ? (
             <div className={classes.detail__videos}>
               <ul className={classes['detail__videos-list']}>

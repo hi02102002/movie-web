@@ -7,7 +7,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.24.0",
-    "html-react-parser": "^1.4.3",
+    "firebase": "^9.6.1",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -15,10 +15,8 @@
     "react-paginate": "^8.1.0",
     "react-router-dom": "5.2",
     "react-scripts": "4.0.3",
-    "react-transition-group": "^4.4.2",
     "sass": "^1.44.0",
-    "swiper": "^7.3.1",
-    "use-state-if-mounted": "^1.0.4"
+    "swiper": "^7.3.1"
   },
   "scripts": {
     "start": "react-scripts start",

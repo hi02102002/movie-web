@@ -1,18 +1,23 @@
-import { useEffect } from 'react';
 import useFetchDataList from '../../hooks/useFetchDataList';
 import { tmdbApi } from '../../api/tmdbApi';
 import ListGrid from '../../components/ListGrid/ListGrid';
 import Pagination from '../../components/Pagination/Pagination';
 import classes from './Tvshow.module.scss';
-import scrollToTop from '../../utilities/scrollToTop';
+import Loader from '../../components/Loader/Loader';
 
 const Tvshow = () => {
-  const { setPage, dataList, totalPage } = useFetchDataList(tmdbApi.getTvs);
+  const { setPage, dataList, totalPage, loading } = useFetchDataList(
+    tmdbApi.getTvs
+  );
 
   return (
     <div className={classes['tvshow-page']}>
       <div className="container">
-        <ListGrid list={dataList.results || []} type="tv" />
+        {loading ? (
+          <Loader />
+        ) : (
+          <ListGrid list={dataList.results || []} type="tv" isAdd={true} />
+        )}
         <Pagination
           dataList={dataList}
           setPage={setPage}

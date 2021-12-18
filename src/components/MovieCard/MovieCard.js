@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { IMG_URL, genresList } from '../../constant';
-import { BsPlayFill, BsPlus } from 'react-icons/bs';
+import { BsPlayFill } from 'react-icons/bs';
 import { useHistory } from 'react-router-dom';
 import noImg from '../../img/no-img.jpg';
 import Button from '../Button/Button';
@@ -8,6 +8,7 @@ import classes from './MovieCard.module.scss';
 
 const MovieCard = ({ movie, className, type }) => {
   const history = useHistory();
+
   const genres = movie.genre_ids
     ? movie.genre_ids.slice(0, 2).map(id => {
         for (const i of genresList) {
@@ -26,7 +27,7 @@ const MovieCard = ({ movie, className, type }) => {
           src={
             movie.backdrop_path ? `${IMG_URL}w500${movie.backdrop_path}` : noImg
           }
-          alt={movie.title}
+          alt={movie.title || movie.name}
         />
       </div>
       <div className={classes['movie-card__info']}>
@@ -43,9 +44,6 @@ const MovieCard = ({ movie, className, type }) => {
             }}
           >
             <BsPlayFill />
-          </Button>
-          <Button className={classes.btn}>
-            <BsPlus />
           </Button>
         </div>
         <div className={classes['movie-card__genres']}>

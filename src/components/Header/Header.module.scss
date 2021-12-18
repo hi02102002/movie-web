@@ -31,6 +31,10 @@
       font-weight: 600;
     }
 
+    @include responsive_639 {
+      margin-right: 0;
+    }
+
     &__large {
       @include responsive_639 {
         display: none;
@@ -95,7 +99,7 @@
   }
 
   &__toggle {
-    margin-left: 2rem;
+    margin-left: 0.5rem;
     cursor: pointer;
     display: none;
 
@@ -130,7 +134,7 @@
         opacity: 1;
 
         @include responsive_639 {
-          width: 15rem;
+          width: 14rem;
         }
       }
     }
@@ -141,6 +145,64 @@
       svg {
         width: 2rem;
         height: 2rem;
+      }
+    }
+  }
+
+  .auth {
+    margin-left: 1rem;
+    position: relative;
+    &__toggle {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      svg {
+        width: 2.4rem;
+        height: 2.4rem;
+        transition: all 0.3s;
+      }
+    }
+
+    &__img {
+      max-width: 3.5rem;
+      border-radius: 0.25rem;
+      overflow: hidden;
+      margin-right: 0.5rem;
+    }
+
+    &__signout {
+      position: absolute;
+      padding: 1rem 1.5rem;
+      width: max-content;
+      background-color: $color-black;
+      border-radius: 0.25rem;
+      right: 5%;
+      top: calc(100% + 1.5rem);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+      cursor: pointer;
+
+      &::after {
+        content: '';
+        height: 1.5rem;
+        background-color: transparent;
+        width: 100%;
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+      }
+    }
+
+    &:hover {
+      .auth__signout {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      svg {
+        transform: rotate(-180deg);
       }
     }
   }

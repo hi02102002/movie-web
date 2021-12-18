@@ -3,9 +3,10 @@ import { useHistory } from 'react-router-dom';
 import { tmdbApi } from '../../api/tmdbApi';
 import { random } from '../../utilities/random';
 import { API_KEY, IMG_URL } from '../../constant';
-import { BsInfo, BsInfoCircle, BsPlayFill } from 'react-icons/bs';
+import { BsInfoCircle, BsPlayFill } from 'react-icons/bs';
 import Button from '../Button/Button';
 import classes from './Banner.module.scss';
+import Loader from '../Loader/Loader';
 
 const params = {
   api_key: API_KEY,
@@ -39,12 +40,13 @@ const Banner = () => {
   }, []);
 
   return isLoading ? (
-    <p>loading...</p>
+    <Loader />
   ) : (
     <section
       className={classes.banner}
       style={{
-        backgroundImage: `url('${IMG_URL}original${movieBanner.backdrop_path}')`,
+        backgroundImage: `url('${IMG_URL}w500${movieBanner.backdrop_path}')`,
+        height: isLoading ? '100vh' : null,
       }}
     >
       <div

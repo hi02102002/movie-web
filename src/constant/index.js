@@ -16,10 +16,6 @@ export const NAVS = [
     name: 'tvshow',
     path: '/tvshow',
   },
-  {
-    name: 'wish list',
-    path: '/wish-list',
-  },
 ];
 
 export const genresList = [

@@ -6,6 +6,7 @@ import { BsList } from 'react-icons/bs';
 import Sidebar from '../Sidebar/Sidebar';
 import classesSidebar from '../Sidebar/Sidebar.module.scss';
 import SearchHeader from './SearchHeader';
+import Auth from './Auth';
 
 const Header = () => {
   const sidebarRef = useRef();
@@ -76,6 +77,7 @@ const Header = () => {
             classNameIcon={classes['header__search-icon']}
             classActive={classes['active']}
           />
+          <Auth />
           <div className={classes.header__toggle}>
             <BsList />
           </div>

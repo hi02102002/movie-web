@@ -4,9 +4,10 @@ import useQuery from '../../hooks/useQuery';
 import useFetchDataList from '../../hooks/useFetchDataList';
 import ListGrid from '../../components/ListGrid/ListGrid';
 import Pagination from '../../components/Pagination/Pagination';
+import Loader from '../../components/Loader/Loader';
 const SearchPage = () => {
   let query = useQuery();
-  const { dataList, setPage, totalPage } = useFetchDataList(
+  const { dataList, setPage, totalPage, loading } = useFetchDataList(
     tmdbApi.search,
     query
   );
@@ -28,7 +29,7 @@ const SearchPage = () => {
         {dataList.results && dataList.results.length === 0 ? (
           <p>No result!!!</p>
         ) : null}
-        <ListGrid list={dataList.results || []} />
+        {loading ? <Loader /> : <ListGrid list={dataList.results || []} />}
         {dataList.results && dataList.results.length === 0 ? null : (
           <Pagination
             dataList={dataList}

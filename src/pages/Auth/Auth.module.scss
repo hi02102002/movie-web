@@ -1,0 +1,86 @@
+@use '../../sass/variables' as *;
+@use '../../sass/mixin' as *;
+
+.auth {
+  height: 100vh;
+  overflow: hidden;
+  background-image: url('../../img/Fakeflix_signin_bg.jpg');
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+
+  &::after {
+    content: '';
+    background-color: rgba($color: #191919, $alpha: 0.8);
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &__logo {
+    color: $main-color;
+    font-size: 3.2rem;
+    font-weight: 600;
+    position: absolute;
+    top: 1.5rem;
+    left: 5%;
+    z-index: 2;
+  }
+
+  &__container {
+    padding: 0 5%;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  &__content {
+    padding: 6rem 4.8rem;
+    background-color: #191919;
+    margin: 0 auto;
+    border-radius: 0.25rem;
+    max-width: 60rem;
+    box-shadow: 0 4px 20px rgba($color: #191919, $alpha: 0.8);
+
+    @include responsive_639 {
+      padding: 3rem 2.4rem;
+    }
+
+    &--toggleView {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2rem;
+
+      p {
+        margin-right: 1.5rem;
+      }
+
+      span {
+        cursor: pointer;
+        color: $main-color;
+        transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+        &:hover {
+          transform: scale(0.9);
+        }
+      }
+
+      @include responsive_639 {
+        flex-direction: column;
+        text-align: center;
+        p {
+          margin-bottom: 2rem;
+        }
+      }
+    }
+  }
+}
